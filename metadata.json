@@ -1,0 +1,6 @@
+{
+  "name": "Wedding Invite Viana & Iracelma",
+  "description": "Elegant digital wedding invitation for Viana Catumbela & Iracelma Lopes on November 1st, 2026. Built with TypeScript, Vite, and Firebase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

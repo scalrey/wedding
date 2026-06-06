@@ -1,0 +1,44 @@
+{
+  "entities": {
+    "RSVPEntry": {
+      "title": "RSVPEntry",
+      "description": "A representation of a guest's RSVP submission",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the guest"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Mobile phone number of the guest, used as unique ID"
+        },
+        "attending": {
+          "type": "string",
+          "enum": ["yes", "no"],
+          "description": "Attendance status"
+        },
+        "guests": {
+          "type": "number",
+          "description": "Number of accompanying guests (0 to 10)"
+        },
+        "message": {
+          "type": "string",
+          "description": "Optional message to the couple"
+        },
+        "submittedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation"
+        }
+      },
+      "required": ["name", "phone", "attending", "guests"]
+    }
+  },
+  "firestore": {
+    "rsvps/{rsvpId}": {
+      "schema": "RSVPEntry",
+      "description": "Collection of wedding RSVP entries"
+    }
+  }
+}

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convite de Casamento · Viana & Iracelma</title>
+    <!-- Google Fonts Imports: Cormorant Garamond + Jost -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- SECÇÃO 1 — HERO / ABERTURA -->
+    <header class="hero-section hero-pattern-bg">
+      <div class="hero-svg-overlay"></div>
+      <div class="hero-border" data-reveal class="visible">
+        <!-- Golden Decorative Corner Accents and Tribal Luxury Design styling -->
+        <p class="text-romantic" style="font-size: 1.2rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.15em;">Convidamos para o Casamento de</p>
+        <h1 style="margin: 1.5rem 0;">VIANA & IRACELMA</h1>
+        
+        <p class="text-romantic" style="font-size: 1.3rem; line-height: 1.6; max-width: 600px; margin: 2rem auto;">
+          "O amor tudo sofre, tudo crê, tudo espera, tudo suporta."
+          <span style="display: block; font-size: 1rem; margin-top: 0.5rem; letter-spacing: 0.1em; font-weight: 400;">— 1 Coríntios 13:7</span>
+        </p>
+        
+        <div class="hero-date">01 de Novembro de 2026</div>
+      </div>
+    </header>
+
+    <!-- SECÇÃO 2 — CRONÓMETRO -->
+    <section class="bg-dark-section" style="padding: 5rem 1.5rem; text-align: center;">
+      <div class="section-wrapper" style="padding: 0;">
+        <h2 data-reveal>Contagem Decrescente</h2>
+        <p class="text-romantic" style="margin-bottom: 2rem;" data-reveal>Faltam poucos instantes para darmos o nosso passo eterno:</p>
+        <div id="wedding-countdown" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO INFORMATIVA — DETALHES DO EVENTO -->
+    <section style="padding: 5rem 1.5rem;">
+      <div class="section-wrapper">
+        <h2 data-reveal>O Projecto do Nosso Dia</h2>
+        <p class="text-romantic" style="text-align: center; max-width: 700px; margin: 0 auto 3rem auto;" data-reveal>
+          Desejamos que este dia especial fique guardado no vosso coração assim como ficará no nosso. Conheçam os pormenores cruciais da nossa cerimónia:
+        </p>
+        
+        <div class="event-details-grid">
+          <!-- Detalhe 1: Cerimónia -->
+          <div class="detail-card" data-reveal>
+            <h3>Cerimónia Religiosa</h3>
+            <p><strong>Hora:</strong> 15h00</p>
+            <p><strong>Local:</strong> Catedral Metropolitana</p>
+            <p>Luanda, Angola</p>
+          </div>
+          
+          <!-- Detalhe 2: Copo d'Água / Recepção -->
+          <div class="detail-card" data-reveal>
+            <h3>Recepção & Festa</h3>
+            <p><strong>Hora:</strong> 18h30</p>
+            <p><strong>Local:</strong> Salão de Festas Império</p>
+            <p>Luanda, Angola</p>
+          </div>
+          
+          <!-- Detalhe 3: Código de Vestuário -->
+          <div class="detail-card" data-reveal>
+            <h3>Dress Code</h3>
+            <p><strong>Traje:</strong> Gala / Formal</p>
+            <p>Toques sutis Africanos de cor dourada são calorosamente bem-vindos para celebrar a nossa identidade.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO 3 — GALERIA -->
+    <section class="bg-dark-section" style="padding: 5rem 1.5rem;">
+      <div class="section-wrapper" style="padding: 0;">
+        <h2 data-reveal>A Nossa Galeria</h2>
+        <p class="text-romantic" style="text-align: center; margin-bottom: 3rem;" data-reveal>Vislumbrem os nossos momentos repletos de carinho e expectativa:</p>
+        <div id="wedding-gallery"></div>
+      </div>
+    </section>
+
+    <!-- SECÇÃO 4 — RSVP COM COMUTAÇÃO DINÂMICA -->
+    <section class="rsvp-section" style="padding: 6rem 1.5rem; background-color: var(--color-dark);">
+      <div class="section-wrapper" style="padding: 0;">
+        <h2 data-reveal>Confirmar Presença</h2>
+        <p class="text-romantic" style="text-align: center; margin-bottom: 3.5rem;" data-reveal>
+          Por favor, queiram efectuar a vossa confirmação até ao dia 15 de Outubro de 2026 para que possamos organizar a melhor recepção possível.
+        </p>
+        
+        <div class="rsvp-container" data-reveal>
+          <form id="rsvp-form" novalidate>
+            <!-- Nome completo -->
+            <div class="form-group">
+              <label class="form-label" for="name">Nome Completo</label>
+              <input class="form-control" type="text" id="name" name="name" placeholder="Escreva o seu nome" required>
+            </div>
+
+            <!-- Número de Telefone -->
+            <div class="form-group">
+              <label class="form-label" for="phone">Número de Telemóvel</label>
+              <input class="form-control" type="tel" id="phone" name="phone" placeholder="Ex: +244 923 456 789" required>
+            </div>
+
+            <!-- Presença -->
+            <div class="form-group">
+              <label class="form-label">Vai comparecer no casamento?</label>
+              <div class="radio-group-container">
+                <label class="radio-label">
+                  <input type="radio" id="attending-yes" name="attending" value="yes" required> Sim, com certeza!
+                </label>
+                <label class="radio-label">
+                  <input type="radio" id="attending-no" name="attending" value="no"> Lamentavelmente não poderei
+                </label>
+              </div>
+            </div>
+
+            <!-- Número de acompanhantes (Condicional) -->
+            <div class="form-group conditional-field" id="conditional-guests-group">
+              <label class="form-label" for="guests">Número de Acompanhantes (Máx 10)</label>
+              <input class="form-control" type="number" id="guests" name="guests" min="0" max="10" value="0">
+            </div>
+
+            <!-- Mensagem para os noivos -->
+            <div class="form-group">
+              <label class="form-label" for="message">Mensagem ou Votos para os Noivos (Opcional)</label>
+              <textarea class="form-control" id="message" name="message" rows="4" maxlength="300" placeholder="Deixe os seus sinceros votos de felicidade para o casal..."></textarea>
+              <div class="char-counter" id="message-char-count">0/300 caracteres</div>
+            </div>
+
+            <!-- Botão de submissão com spinner dourado integrado -->
+            <button class="btn-submit" type="submit">
+              <span>Confirmar Presença</span>
+              <div class="spinner"></div>
+            </button>
+
+            <!-- Feedback da operação -->
+            <div class="feedback-message" id="rsvp-feedback"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER DA INVITATION CARD -->
+    <footer class="wedding-footer">
+      <p data-reveal>Viana & Iracelma</p>
+      <p style="font-family: var(--font-body); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-text-body); margin-top: 1rem;" data-reveal>&copy; 2026 · Todos os direitos reservados</p>
+    </footer>
+
+    <!-- Entrypoint JavaScript File -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global safety net: default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidRSVPEntry(data) {
+      return data.keys().hasAll(['name', 'phone', 'attending', 'guests', 'submittedAt'])
+        && data.keys().size() <= 6
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 100
+        && data.phone is string && data.phone.size() > 0 && data.phone.size() <= 30
+        && data.attending is string && (data.attending == 'yes' || data.attending == 'no')
+        && data.guests is int && data.guests >= 0 && data.guests <= 10
+        && data.submittedAt == request.time
+        && (!data.keys().hasAny(['message']) || (data.message is string && data.message.size() <= 300));
+    }
+
+    match /rsvps/{rsvpId} {
+      allow create: if isValidId(rsvpId) && isValidRSVPEntry(incoming());
+      // Permit individual document reads and restricted queries (for anti-duplicate verification)
+      allow get: if true;
+      allow list: if request.query.limit <= 1;
+      allow update, delete: if false;
+    }
+  }
+}
