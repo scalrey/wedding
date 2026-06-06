@@ -5,11 +5,16 @@
 
 import { initializeApp, type FirebaseApp } from 'firebase/app';
 import { getFirestore, type Firestore, doc, getDocFromServer } from 'firebase/firestore';
+import { getAuth, GoogleAuthProvider, type Auth } from 'firebase/auth';
+import { getStorage, type FirebaseStorage } from 'firebase/storage';
 import { OperationType, type FirestoreErrorInfo } from './types';
 import firebaseConfig from '../firebase-applet-config.json';
 
 let app: FirebaseApp | null = null;
 let db: Firestore | null = null;
+let auth: Auth | null = null;
+let googleProvider: GoogleAuthProvider | null = null;
+let storage: FirebaseStorage | null = null;
 let isFirebaseInitialized = false;
 
 // Validate if configuration is loaded and has a valid API key
@@ -19,6 +24,9 @@ if (isConfigValid) {
   try {
     app = initializeApp(firebaseConfig);
     db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+    auth = getAuth(app);
+    googleProvider = new GoogleAuthProvider();
+    storage = getStorage(app);
     isFirebaseInitialized = true;
     console.log("Firebase inicializado com sucesso usando o arquivo de configuração.");
     
@@ -53,10 +61,10 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
   const errInfo: FirestoreErrorInfo = {
     error: error instanceof Error ? error.message : String(error),
     authInfo: {
-      userId: null,
-      email: null,
-      emailVerified: null,
-      isAnonymous: null,
+      userId: auth?.currentUser?.uid || null,
+      email: auth?.currentUser?.email || null,
+      emailVerified: auth?.currentUser?.emailVerified || null,
+      isAnonymous: auth?.currentUser?.isAnonymous || null,
     },
     operationType,
     path
@@ -65,6 +73,6 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
   throw new Error(JSON.stringify(errInfo));
 }
 
-export { isFirebaseInitialized, db };
+export { isFirebaseInitialized, db, auth, googleProvider, storage };
 export const firebaseAppConfig = firebaseConfig;
 export const firebaseInitializedSuccessfully = isConfigValid;

@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
   base: './',                  // Relative paths — mandatory for Hostinger deployment
@@ -8,9 +9,13 @@ export default defineConfig({
     sourcemap: false,
     minify: 'esbuild',
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        admin: resolve(__dirname, 'admin.html')
+      },
       output: {
         manualChunks: {
-          firebase: ['firebase/app', 'firebase/firestore']
+          firebase: ['firebase/app', 'firebase/firestore', 'firebase/auth', 'firebase/storage']
         }
       }
     }

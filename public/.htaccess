@@ -1,0 +1,17 @@
+# Forçar os tipos MIME corretos para evitar erros de bloqueio de Scripts (Strict MIME type checking)
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType application/javascript .mjs
+  AddType text/css .css
+  AddType image/svg+xml .svg
+</IfModule>
+
+# Permitir URLs amigáveis e reencaminhar tudo para o index.html (SPA routing fallback)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

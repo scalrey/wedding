@@ -14,6 +14,12 @@ service cloud.firestore {
       return request.resource.data;
     }
 
+    function isAdmin() {
+      return request.auth != null 
+        && request.auth.token.email == 'scalrey17@gmail.com' 
+        && request.auth.token.email_verified == true;
+    }
+
     function isValidRSVPEntry(data) {
       return data.keys().hasAll(['name', 'phone', 'attending', 'guests', 'submittedAt'])
         && data.keys().size() <= 6
@@ -25,12 +31,45 @@ service cloud.firestore {
         && (!data.keys().hasAny(['message']) || (data.message is string && data.message.size() <= 300));
     }
 
+    function isValidSiteConfig(data) {
+      return data.keys().hasAll(['names', 'verse', 'location', 'ceremonyTime', 'countdownTarget'])
+        && data.names is string && data.names.size() <= 200
+        && data.verse is string && data.verse.size() <= 500
+        && data.location is string && data.location.size() <= 300
+        && data.countdownTarget is string && data.countdownTarget.size() <= 100
+        && (!data.keys().hasAny(['verseReference']) || (data.verseReference is string && data.verseReference.size() <= 200))
+        && (!data.keys().hasAny(['receptionLocation']) || (data.receptionLocation is string && data.receptionLocation.size() <= 300))
+        && (!data.keys().hasAny(['ceremonyTime']) || (data.ceremonyTime is string && data.ceremonyTime.size() <= 200))
+        && (!data.keys().hasAny(['sections']) || (data.sections is map));
+    }
+
+    function isValidGalleryItem(data) {
+      return data.keys().hasAll(['url', 'storagePath', 'order'])
+        && data.url is string && data.url.size() <= 1000
+        && data.storagePath is string && data.storagePath.size() <= 500
+        && data.order is int
+        && (!data.keys().hasAny(['caption']) || (data.caption is string && data.caption.size() <= 300))
+        && (!data.keys().hasAny(['uploadedAt']) || (data.uploadedAt == request.time || data.uploadedAt is timestamp));
+    }
+
     match /rsvps/{rsvpId} {
       allow create: if isValidId(rsvpId) && isValidRSVPEntry(incoming());
-      // Permit individual document reads and restricted queries (for anti-duplicate verification)
       allow get: if true;
-      allow list: if request.query.limit <= 1;
-      allow update, delete: if false;
+      allow list: if request.query.limit <= 1 || isAdmin();
+      allow delete: if isAdmin();
+      allow update: if false;
+    }
+
+    match /site-config/{docId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidId(docId) && isValidSiteConfig(incoming());
+      allow delete: if isAdmin();
+    }
+
+    match /gallery/{docId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidId(docId) && isValidGalleryItem(incoming());
+      allow delete: if isAdmin();
     }
   }
 }

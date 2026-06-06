@@ -33,12 +33,77 @@
         }
       },
       "required": ["name", "phone", "attending", "guests"]
+    },
+    "SiteConfig": {
+      "title": "SiteConfig",
+      "description": "Dynamic configuration of the wedding invitation page",
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "string"
+        },
+        "verse": {
+          "type": "string"
+        },
+        "verseReference": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "receptionLocation": {
+          "type": "string"
+        },
+        "ceremonyTime": {
+          "type": "string"
+        },
+        "countdownTarget": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sections": {
+          "type": "object"
+        }
+      },
+      "required": ["names", "verse", "location", "ceremonyTime", "countdownTarget"]
+    },
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "A photo item shown in the gallery",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "storagePath": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        },
+        "uploadedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["url", "storagePath", "order"]
     }
   },
   "firestore": {
     "rsvps/{rsvpId}": {
       "schema": "RSVPEntry",
       "description": "Collection of wedding RSVP entries"
+    },
+    "site-config/{docId}": {
+      "schema": "SiteConfig",
+      "description": "Configuration document containing general metadata of the event"
+    },
+    "gallery/{itemId}": {
+      "schema": "GalleryItem",
+      "description": "Collection of photographic material and dynamic gallery image details"
     }
   }
 }
